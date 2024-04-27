@@ -1,0 +1,67 @@
+{
+    "Chile": { 
+        "id": 1, 
+        "cantidad_digitos": 9, 
+        "prefijo": "56" 
+    },
+    "Argentina": { 
+        "id": 2, 
+        "cantidad_digitos": 9, 
+        "prefijo": "549" 
+    },
+    "Uruguay": { 
+        "id": 3, 
+        "cantidad_digitos": 8, 
+        "prefijo": "598" 
+    },
+    "Bahrain": { 
+        "id": 4, 
+        "cantidad_digitos": 8, 
+        "prefijo": "973" 
+    },
+    "Qatar": { 
+        "id": 5, 
+        "cantidad_digitos": 8, 
+        "prefijo": "974" 
+    },
+    "Oman": { 
+        "id": 6, 
+        "cantidad_digitos": 8, 
+        "prefijo": "968" 
+    },
+    "Costa Rica": { 
+        "id": 7, 
+        "cantidad_digitos": 8, 
+        "prefijo": "506" 
+    },
+    "Jordania": { 
+        "id": 8, 
+        "cantidad_digitos": 9, 
+        "prefijo": "962" 
+    },
+    "Colombia": { 
+        "id": 9, 
+        "cantidad_digitos": 10, 
+        "prefijo": "57" 
+    },
+    "Bolivia": { 
+        "id": 10, 
+        "cantidad_digitos": 8, 
+        "prefijo": "591" 
+    },
+    "Honduras": { 
+        "id": 11, 
+        "cantidad_digitos": 8, 
+        "prefijo": "504" 
+    },
+    "Peru": { 
+        "id": 12, 
+        "cantidad_digitos": 9, 
+        "prefijo": "51" 
+    },
+    "EAU": { 
+        "id": 13, 
+        "cantidad_digitos": 9, 
+        "prefijo": "971" }
+  }
+  
