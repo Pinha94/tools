@@ -1,15 +1,6 @@
 <?php 
 
-if (!empty($_POST)) {
-        $hash = $_POST['hash'] ?? null;
-        $ambiente = $_POST['ambiente'] ?? null;
-        $pais = $_POST['pais'] ?? null;
-        $digitsCant = $_POST['digitsCant'] ?? null;
-        $prefix = $_POST['prefix'] ?? null;
-        $custom = $_POST['custom'] ?? null;
-        $msisdns = null;
-        $magic = '';
-        
+if (!empty($_POST)) :
         // Bucle para concatenar el número 1 tantas veces como el valor de $numReps
         for ($i = 0; $i < ($digitsCant - 1); $i++) {
             $magic .= '1';
@@ -37,7 +28,6 @@ if (!empty($_POST)) {
         $baseUrl .= $hash . '/';
         $baseUrl .= $custom;
         $baseUrl .= 'msisdn=';    
-    }
 ?>
 <section id="landings" class="seccion">
     <div class="title-content">
@@ -77,3 +67,4 @@ if (!empty($_POST)) {
         ?>
     </div>
 </section>
+<?php endif; ?>

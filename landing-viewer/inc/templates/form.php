@@ -5,26 +5,44 @@
     <h4>Configuraciones</h4>
     <form action="" method="post">
         <fieldset>
-            <input value="<?php echo $_POST['hash'] ?? null ?>"
-                type="text" name="hash" id="hash" placeholder="Hash">
-                <select name="ambiente" id="ambiente">
-                    <option value="dev" <?php echo ($_POST['ambiente'] == 'dev') ? 'selected' : ''; ?>>DEV</option>
-                    <option value="qa" <?php echo ($_POST['ambiente'] == 'qa') ? 'selected' : ''; ?>>QA</option>
-                    <option value="prod" <?php echo ($_POST['ambiente'] == 'prod') ? 'selected' : ''; ?>>PROD</option>
+            <div class="field-content">
+                <label for="hash">Hash</label>
+                <input class="field" value="<?php echo $hash ?? null ?>"
+                    type="text" name="hash" id="hash" placeholder="Hash">
+            </div>
+            <div class="field-content">
+                <label for="ambiente">Ambiente</label>
+                <select class="select" name="ambiente" id="ambiente">
+                    <option value="dev" <?php echo ($ambiente == 'dev') ? 'selected' : ''; ?>>DEV</option>
+                    <option value="qa" <?php echo ($ambiente == 'qa') ? 'selected' : ''; ?>>QA</option>
+                    <option value="prod" <?php echo ($ambiente == 'prod') ? 'selected' : ''; ?>>PROD</option>
                 </select>
-            <select name="pais" id="pais">
-                <option value="0" selected disabled>Selecciona un país</option>
-                <?php foreach ($paises as $pais => $data) : ?>
-                <option value="<?php echo $pais; ?>" <?php echo ($_POST['pais'] == $pais) ? 'selected' : ''; ?>><?php echo $pais; ?></option>
-                <?php endforeach; ?>
-                <option value="new">Nuevo país</option>
-            </select>
-            <input value="<?php echo $_POST['digitsCant'] ?? null ?>" type="number" 
-                name="digitsCant" id="digitsCant" placeholder="Cantidad de dígitos">
-            <input value="<?php echo $_POST['prefix'] ?? null ?>" type="number" 
-                name="prefix" id="prefix" placeholder="Prefijo">
-            <input value="<?php echo $_POST['custom'] ?? '159/?' ?>" type="text" 
-                name="custom" id="custom" placeholder="Parametros personalizados">
+            </div>
+            <div class="field-content">
+                <label for="pasi">Pais</label>
+                <select class="select" name="pais" id="pais">
+                    <option value="0" selected disabled>Selecciona un país</option>
+                    <?php foreach ($paises as $element => $data) : ?>
+                    <option value="<?php echo $element; ?>" <?php echo ($pais == $element) ? 'selected' : ''; ?>><?php echo $element; ?></option>
+                    <?php endforeach; ?>
+                    <option value="new">Nuevo país</option>
+                </select>
+            </div>
+            <div class="field-content">
+                <label for="digitsCant">Cantidad de dígitos</label>
+                <input value="<?php echo $digitsCant ?? null ?>" class="field" type="number" 
+                    name="digitsCant" id="digitsCant" placeholder="Cantidad de dígitos">
+            </div>
+            <div class="field-content">
+                <label for="prefix">Prefijo</label>
+                <input value="<?php echo $prefix ?? null ?>" class="field" type="number" 
+                    name="prefix" id="prefix" placeholder="Prefijo">
+            </div>
+            <div class="field-content">
+                <label for="custom">Personalizado</label>
+                <input value="<?php echo $custom ?? '159/?' ?>" class="field" type="text" 
+                    name="custom" id="custom" placeholder="Parametros personalizados">
+            </div>
         </fieldset>
         <button type="submit" class="button">Enviar</button>
     </form>
