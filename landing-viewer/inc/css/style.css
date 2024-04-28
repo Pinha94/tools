@@ -75,12 +75,39 @@ ul, li {
     & fieldset {
         display: flex;
         flex-wrap: wrap;
-        gap: 1rem 2rem;
+        gap: 2rem;
         padding: 2rem;
         border-radius: 1.5rem;
         border: solid 1px rgb(255 255 255 / .5);
         margin-bottom: 2rem;
         & > * {min-width: 10rem;}
+        .field-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            & label {
+                font-size: 1.4rem;
+                margin-bottom: .5rem;
+            }
+            .field, .select {
+                background-color: transparent;
+                border: none;
+                border-bottom: solid .2rem #fff;
+                padding: .5rem;
+                color: #FFF;
+                outline: none;
+            }
+            .select {
+                & option {
+                    color: #121212;
+                    &[selected] {
+                        color: #a2a2a2;
+                        background-color: #e5e5e5;
+                    }
+                    &:hover {background-color: #4233fe;}
+                }
+            }
+        }
     }
 }
 
@@ -94,7 +121,7 @@ ul, li {
     }
     .content {
         display: flex;
-        justify-content: space-between;
+        justify-content: start;
         flex-wrap: wrap;
         gap: 3rem 2rem;
         .viewer {
