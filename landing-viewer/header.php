@@ -2,13 +2,18 @@
     include 'app.php';
 
     $hash = $_POST['hash'] ?? null;
-    $ambiente = $_POST['ambiente'] ?? null;
     $pais = $_POST['pais'] ?? null;
     $digitsCant = $_POST['digitsCant'] ?? null;
     $prefix = $_POST['prefix'] ?? null;
     $custom = $_POST['custom'] ?? null;
     $msisdns = null;
     $magic = '';
+    if (isset($_POST['ambiente']) && ($_POST['ambiente'] == '1')) {
+        $ambiente = null;
+    } else {
+        $ambiente = $_POST['ambiente'] ?? null;
+    }
+        
 
 ?>
 <!DOCTYPE html>

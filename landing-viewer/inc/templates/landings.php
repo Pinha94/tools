@@ -23,7 +23,7 @@ if (!empty($_POST)) :
         );
 
         $baseUrl = 'http://';
-        $baseUrl .= $ambiente . '.';
+        $baseUrl .= ($ambiente == '') ? '' : $ambiente . '.';
         $baseUrl .= 'oprastore.com/traffic/landing/';
         $baseUrl .= $hash . '/';
         $baseUrl .= $custom;

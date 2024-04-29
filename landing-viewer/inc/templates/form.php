@@ -15,7 +15,7 @@
                 <select class="select" name="ambiente" id="ambiente">
                     <option value="dev" <?php echo ($ambiente == 'dev') ? 'selected' : ''; ?>>DEV</option>
                     <option value="qa" <?php echo ($ambiente == 'qa') ? 'selected' : ''; ?>>QA</option>
-                    <option value="prod" <?php echo ($ambiente == 'prod') ? 'selected' : ''; ?>>PROD</option>
+                    <option value="1" <?php echo ($ambiente == '1') ? 'selected' : ''; ?>>PROD</option>
                 </select>
             </div>
             <div class="field-content">
