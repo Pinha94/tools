@@ -1,0 +1,166 @@
+/* Font Roboto & Roboto Condensed */
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+:root {
+    --primary-font: 'Roboto', sans-serif;
+    --secondary-font: 'Roboto Condensed', sans-serif;
+    --background-dark: #121212;
+    --background-dark-section: #1a1d28;
+    --background-light-section: #FFF;
+    --background-light: #e5e5e5;
+    --font-color-light: #222;
+    --font-color-dark: #FFF;
+}
+
+/* ================================
+            Globales
+=================================== */
+html {
+    font-size: 62.5%;
+}
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+body {
+    font-size: 1.6rem;
+    font-family: var(--primary-font);
+    background-color: var(--background-light);
+}
+h1 {font-size: 3.2rem;}
+h2 {font-size: 3.0rem;}
+h3 {font-size: 2.8rem;}
+h4 {font-size: 2.4rem;}
+h5 {font-size: 2.0rem;}
+h6 {font-size: 1.8rem;}
+h1,h2,h3,h4,h5,h6 {margin: 1rem;}
+a {text-decoration: none;}
+ul, li {
+    padding: 0;
+    list-style: none;
+}
+input[type="number"] {
+    appearance: none;
+    -moz-appearance: textfield;
+    &::-webkit-inner-spin-button,
+    &::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      appearance: none;
+    }
+}
+
+/* ================================
+            Utilidades
+=================================== */
+.text-center {text-align: center;}
+.container {
+    padding-left: 3rem;
+    padding-right: 3rem;
+}
+.seccion {
+    background-color: var(--background-light-section);
+    padding: 2rem;
+    border-radius: 7px;
+    margin-bottom: 4rem;
+}
+.button {
+    padding: .7rem 2rem;
+    text-transform: uppercase;
+    background-color: #4233fe;
+    border-radius: .5rem;
+    border: none;
+    color: #FFF;
+    font-family: var(--secondary-font);
+    font-weight: 500;
+    text-align: center;
+    cursor: pointer;
+    transition: 500ms;
+    letter-spacing: 1px;
+    &:hover {filter: brightness(2);}
+}
+
+/* ================================
+        Seccion Form
+=================================== */
+#configForm {
+    & fieldset {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2rem;
+        padding: 2rem;
+        border-radius: 1.5rem;
+        border: solid 1px rgb(255 255 255 / .5);
+        margin-bottom: 2rem;
+        & > * {min-width: 10rem;}
+        .field-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            & label {
+                font-size: 1.4rem;
+                margin-bottom: .5rem;
+            }
+            .field, .select {
+                background-color: transparent;
+                border: none;
+                border-bottom: solid .2rem #fff;
+                padding: .5rem;
+                color: #FFF;
+                outline: none;
+            }
+            .select {
+                & option {
+                    color: #121212;
+                    &[selected] {
+                        color: #a2a2a2;
+                        background-color: #e5e5e5;
+                    }
+                    &:hover {background-color: #4233fe;}
+                }
+            }
+        }
+    }
+}
+
+/* ================================
+        Seccion landing
+=================================== */
+#landings {
+    .title-content {
+        display: flex;
+        justify-content: space-between;
+    }
+    .content {
+        display: flex;
+        justify-content: start;
+        flex-wrap: wrap;
+        gap: 3rem 2rem;
+        .viewer {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            .preview-content {
+                position: relative;
+                width: calc(35rem * .5);
+                height: calc(75rem * .5);
+                .preview {
+                    width: 35rem;
+                    height: 75rem;
+                    transform: scale(.5);
+                    transform-origin: top left;
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                }
+            }
+        }
+    }
+}
+
+/* ================================
+            Dark Theme
+=================================== */
+body.dark-theme {
+    background-color: var(--background-dark);
+    color: var(--font-color-dark);
+    .seccion {background-color: var(--background-dark-section);}
+}
