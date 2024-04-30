@@ -42,13 +42,17 @@ if (!empty($_POST)) :
                 $name = $msisdnData["name"];
                 $pin = $msisdnData["pin"] ?? NULL;
                 // Generar el URL completo para el iframe y el enlace
-                if ($pin == null && $name == 'confirm') {
-                    $fullUrl = $baseUrl . $msisdn . '&forcepin=true&navigate=2ndOptin';
-                } else if ($pin == null) {
-                    $fullUrl = $baseUrl . $msisdn;
-                } 
-                else {
-                    $fullUrl = $baseUrl . $msisdn . '&pincode=' . $pin;
+                switch ($name) {
+                    case 'confirm':
+                        $fullUrl = $baseUrl . $msisdn . '&forcepin=true&navigate=2ndOptin';
+                        break;
+                    case 'request pin':
+                    case 'no he':
+                        $fullUrl = $baseUrl . $msisdn . '&nohe=true';
+                        break;
+                    default:
+                        $fullUrl = $baseUrl . $msisdn . ($pin ? '&pincode=' . $pin : '');
+                        break;
                 }
         ?>
         <div class="viewer">
