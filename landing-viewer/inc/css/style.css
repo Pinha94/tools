@@ -10,6 +10,9 @@
     --background-light: #e5e5e5;
     --font-color-light: #222;
     --font-color-dark: #FFF;
+    --color-able: #28c728;
+    --color-highlighted: #4233fe;
+    --color-error: #FF5151;
 }
 
 /* ================================
@@ -62,6 +65,7 @@ input[type="number"] {
     border-radius: 7px;
     margin-bottom: 4rem;
 }
+.small {font-size: 80%;}
 .button {
     padding: .7rem 2rem;
     text-transform: uppercase;
@@ -73,15 +77,35 @@ input[type="number"] {
     font-weight: 500;
     text-align: center;
     cursor: pointer;
-    transition: 500ms;
     letter-spacing: 1px;
+    transition: all 500ms, transform 300ms;
     &:hover {filter: brightness(2);}
+    &.clicked {transform: scale(.9);}
+}
+.icon-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 3rem;
+    height: 3rem;
+    padding: 0;
+    background-color: #788cda;
+    line-height: 1;
+    &:hover {
+        filter: brightness(1.2);
+        text-shadow: 0 0 3px rgb(0 0 0 / .5);
+    }
 }
 
 /* ================================
         Seccion Form
 =================================== */
+.seccion-columns {
+    display: flex;
+    gap: 2rem;
+}
 #configForm {
+    flex: 1;
     & fieldset {
         display: flex;
         flex-wrap: wrap;
@@ -106,6 +130,11 @@ input[type="number"] {
                 padding: .5rem;
                 color: #FFF;
                 outline: none;
+                &:focus {
+                    box-shadow: 0 0 .5rem rgb(255 255 255 / .5);
+                    border-top-left-radius: .3rem;
+                    border-top-right-radius: .3rem;
+                }
             }
             .select {
                 & option {
@@ -120,6 +149,30 @@ input[type="number"] {
         }
     }
 }
+#historial {
+    max-width: 20rem;
+    max-height: 31rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    & h5 {
+        margin: 0 0 2rem;
+    }
+    #historialContent {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        scrollbar-width: thin;
+        margin: 0;
+        .item {
+            width: max-content;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            cursor: pointer;
+        }
+    }
+}
 
 /* ================================
         Seccion landing
@@ -128,6 +181,17 @@ input[type="number"] {
     .title-content {
         display: flex;
         justify-content: space-between;
+        margin-bottom: 1rem;
+        .right {
+            display: flex;
+            align-items: center;
+            justify-self: end;
+            gap: 1rem;
+            .actions {
+                display: flex;
+                gap: .5rem;
+            }
+        }
     }
     .content {
         display: flex;
@@ -152,22 +216,36 @@ input[type="number"] {
                     top: 0;
                 }
             }
-            .check-content {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                gap: 10px;
-                border: solid .1rem rgb(255 255 255 / .1);
-                border-radius: .5rem;
-                padding: .4rem;
-                line-height: 1;
-                & label {cursor: pointer;}
-                .checkbox {
-                    width: 1.6rem;
-                    height: 1.6rem;
+        }
+    }
+    .check-content {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        border: solid .1rem rgb(255 255 255 / .1);
+        border-radius: .5rem;
+        padding: .4rem;
+        line-height: 1;
+        cursor: pointer;
+        transition: all 100ms;
+        &:has(.checkbox:checked) {
+            border-color: var(--color-able);
+            background-color: var(--color-able);
+            & span {
+                position: relative;
+                &::before {
+                    content: '\f00c';
+                    font-family: 'Fontawesome';
+                    position: absolute;
+                    left: 0;
+                    top: calc(50% - .7rem);
+                    margin-left: -2rem;
+                    font-size: 1.4rem;
                 }
             }
         }
+        .checkbox { display: none; }
     }
 }
 
