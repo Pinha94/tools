@@ -152,6 +152,21 @@ input[type="number"] {
                     top: 0;
                 }
             }
+            .check-content {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 10px;
+                border: solid .1rem rgb(255 255 255 / .1);
+                border-radius: .5rem;
+                padding: .4rem;
+                line-height: 1;
+                & label {cursor: pointer;}
+                .checkbox {
+                    width: 1.6rem;
+                    height: 1.6rem;
+                }
+            }
         }
     }
 }

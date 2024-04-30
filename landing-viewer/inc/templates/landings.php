@@ -37,7 +37,9 @@ if (!empty($_POST)) :
     <div class="content">
         <?php 
         if ($msisdns !== null) :
+            $i = 0;
             foreach ($msisdns as $msisdnData) :
+                $i++;
                 $msisdn = $msisdnData["msisdn"];
                 $name = $msisdnData["name"];
                 $pin = $msisdnData["pin"] ?? NULL;
@@ -62,6 +64,10 @@ if (!empty($_POST)) :
                     src="<?php echo $fullUrl ?>"
                     frameborder="0">
                 </iframe>
+            </div>
+            <div class="check-content">
+                <input class="checkbox" type="checkbox" name="checked" id="checked<?php echo $i; ?>">
+                <label for="checked<?php echo $i; ?>">Revisado</label>
             </div>
             <a href="<?php echo $fullUrl ?>" target="_blank" class="button">ver <?php echo $name; ?></a>
         </div>
