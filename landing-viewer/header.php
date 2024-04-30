@@ -24,6 +24,8 @@
     <title>Visualizador de landings</title>
     <link rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.1/normalize.css">
     <link rel="stylesheet" href="inc/css/style.css">
+    <link rel="icon" href="inc/images/favicon.png" type="image/png">
+
 </head>
 <body class="dark-theme">
     <h1 class="title text-center">Visualizador de landings</h1>
