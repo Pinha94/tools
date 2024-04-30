@@ -64,7 +64,7 @@ function impHistorial() {
             elementList.innerText = (element['ambiente'] !== '1' ? element['ambiente'] : 'prod') + ` - ${element['hash']}`;
     
     
-            listHistorial.append(elementList);
+            listHistorial.prepend(elementList);
     
             elementList.addEventListener('click', () => {
                 setForm(element);
