@@ -1,38 +1,44 @@
 <?php 
 
 if (!empty($_POST)) :
-        // Bucle para concatenar el número 1 tantas veces como el valor de $numReps
-        for ($i = 0; $i < ($digitsCant - 1); $i++) {
-            $magic .= '1';
-        }
-        $baseMsisdn = $prefix . $magic;
+    // Bucle para concatenar el número 1 tantas veces como el valor de $numReps
+    for ($i = 0; $i < ($digitsCant - 1); $i++) {
+        $magic .= '1';
+    }
+    $baseMsisdn = $prefix . $magic;
 
-        $msisdns = array(
-            array("msisdn" => '-1', "name" => "no he"),
-            array("msisdn" => $baseMsisdn . "1", "name" => "request pin"),
-            array("msisdn" => $baseMsisdn . "2", "name" => "he"),
-            array("msisdn" => $baseMsisdn . "2", "name" => "confirm"),
-            array("msisdn" => $baseMsisdn . "3", "name" => "error signup"),
-            array("msisdn" => $baseMsisdn . "4", "name" => "active"),
-            array("msisdn" => $baseMsisdn . "5", "name" => "doi"),
-            array("msisdn" => $baseMsisdn . "1", "name" => "ok", "pin" => "11111"),
-            array("msisdn" => $baseMsisdn . "1", "name" => "error", "pin" => "11112"),
-            array("msisdn" => $baseMsisdn . "1", "name" => "error Pin", "pin" => "11113"),
-            array("msisdn" => $baseMsisdn . "1", "name" => "pin reenviado", "pin" => "11114"),
-            array("msisdn" => $baseMsisdn . "1", "name" => "pin expirado", "pin" => "11115"),
-        );
+    $msisdns = array(
+        array("msisdn" => '-1', "name" => "no he"),
+        array("msisdn" => $baseMsisdn . "1", "name" => "request pin"),
+        array("msisdn" => $baseMsisdn . "2", "name" => "he"),
+        array("msisdn" => $baseMsisdn . "2", "name" => "confirm"),
+        array("msisdn" => $baseMsisdn . "3", "name" => "error signup"),
+        array("msisdn" => $baseMsisdn . "4", "name" => "active"),
+        array("msisdn" => $baseMsisdn . "5", "name" => "doi"),
+        array("msisdn" => $baseMsisdn . "1", "name" => "ok", "pin" => "11111"),
+        array("msisdn" => $baseMsisdn . "1", "name" => "error", "pin" => "11112"),
+        array("msisdn" => $baseMsisdn . "1", "name" => "error Pin", "pin" => "11113"),
+        array("msisdn" => $baseMsisdn . "1", "name" => "pin reenviado", "pin" => "11114"),
+        array("msisdn" => $baseMsisdn . "1", "name" => "pin expirado", "pin" => "11115"),
+    );
 
-        $baseUrl = 'http://';
-        $baseUrl .= ($ambiente == '') ? '' : $ambiente . '.';
-        $baseUrl .= 'oprastore.com/traffic/landing/';
-        $baseUrl .= $hash . '/';
-        $baseUrl .= $custom;
-        $baseUrl .= 'msisdn=';    
+    $baseUrl = 'http://';
+    $baseUrl .= ($ambiente == '') ? '' : $ambiente . '.';
+    $baseUrl .= 'oprastore.com/traffic/landing/';
+    $baseUrl .= $hash . '/';
+    $baseUrl .= $custom;
+    $baseUrl .= 'msisdn=';    
 ?>
 <section id="landings" class="seccion">
     <div class="title-content">
         <h4>Vistas</h4>
-        <h4><?php echo $hash; ?></h4>
+        <div class="right">
+            <div class="actions">
+                <button id="uncheckedBtn" class="button icon-button" title="Desmarcar revisados"><i class="fa-regular fa-square"></i></button>
+                <button id="reloadBtn" class="button icon-button" title="Recargar vistas"><i class="fa-solid fa-rotate-right"></i></button>
+            </div>
+            <h4><?php echo $hash; ?></h4>
+        </div>
     </div>
     <div class="content">
         <?php 
@@ -65,10 +71,10 @@ if (!empty($_POST)) :
                     frameborder="0">
                 </iframe>
             </div>
-            <div class="check-content">
+            <label for="checked<?php echo $i; ?>" class="check-content">
                 <input class="checkbox" type="checkbox" name="checked" id="checked<?php echo $i; ?>">
-                <label for="checked<?php echo $i; ?>">Revisado</label>
-            </div>
+                <span>Revisado</span>
+            </label>
             <a href="<?php echo $fullUrl ?>" target="_blank" class="button">ver <?php echo $name; ?></a>
         </div>
         <?php 
