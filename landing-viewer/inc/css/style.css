@@ -79,6 +79,7 @@ input[type="number"] {
     cursor: pointer;
     letter-spacing: 1px;
     transition: all 500ms, transform 300ms;
+    user-select: none;
     &:hover {filter: brightness(2);}
     &.clicked {transform: scale(.9);}
 }
@@ -170,6 +171,7 @@ input[type="number"] {
             font-size: 1.2rem;
             text-transform: uppercase;
             cursor: pointer;
+            user-select: none;
         }
     }
 }
@@ -227,6 +229,7 @@ input[type="number"] {
         border-radius: .5rem;
         padding: .4rem;
         line-height: 1;
+        user-select: none;
         cursor: pointer;
         transition: all 100ms;
         &:has(.checkbox:checked) {
