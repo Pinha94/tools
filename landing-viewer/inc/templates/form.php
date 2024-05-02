@@ -49,7 +49,12 @@
         </form>
     </section>
     <aside id="historial" class="seccion">
-        <h5>Recientes</h5>
+        <div class="title-content">
+            <h5>Recientes</h5>
+            <button id="clearHistoryBtn" class="button icon-button red" title="Vaciar historial">
+                <i class="fa fa-trash-can"></i>
+            </button>
+        </div>
         <ul id="historialContent" class="content">
         </ul>
     </aside>
