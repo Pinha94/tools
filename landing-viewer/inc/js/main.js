@@ -13,6 +13,7 @@ function app() {
     const buttons = document.querySelectorAll('.button');
     const reloadBtn = document.getElementById('reloadBtn');
     const uncheckedBtn = document.getElementById('uncheckedBtn');
+    const clearHistoryBtn = document.getElementById('clearHistoryBtn');
 
     if (elementsSelect) {
         var changeColor = (element, newColor) => element.style.color = newColor;
@@ -49,6 +50,13 @@ function app() {
         uncheckedBtn.addEventListener('click', () => {
             // Desmarca todos los checkbox
             checks.forEach(checkElement => checkElement.checked = false );
+        });
+    }
+
+    if (clearHistoryBtn) {
+        clearHistoryBtn.addEventListener('click', () => {
+            localStorage.removeItem('historial');
+            document.getElementById('historialContent').innerHTML = '<li class="small">Nada para mostrar</li>';
         });
     }
 }

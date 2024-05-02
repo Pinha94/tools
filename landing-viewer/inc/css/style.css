@@ -10,9 +10,11 @@
     --background-light: #e5e5e5;
     --font-color-light: #222;
     --font-color-dark: #FFF;
-    --color-able: #28c728;
-    --color-highlighted: #4233fe;
-    --color-error: #FF5151;
+    --color-primary: #3279bb;
+    --color-success: #5eb662;
+    --color-info: #5cbee1;
+    --color-warning: #edae4f;
+    --color-error: #d7534f;
 }
 
 /* ================================
@@ -67,7 +69,7 @@ input[type="number"] {
 }
 .small {font-size: 80%;}
 .button {
-    padding: .7rem 2rem;
+    padding: .7rem 1.5rem;
     text-transform: uppercase;
     background-color: #4233fe;
     border-radius: .5rem;
@@ -80,8 +82,12 @@ input[type="number"] {
     letter-spacing: 1px;
     transition: all 500ms, transform 300ms;
     user-select: none;
-    &:hover {filter: brightness(2);}
+    &:hover {
+        filter: brightness(1.5);
+        text-shadow: 0 0 3px rgb(0 0 0 / .5);
+    }
     &.clicked {transform: scale(.9);}
+    &.red {background-color: var(--color-error);}
 }
 .icon-button {
     display: flex;
@@ -92,10 +98,6 @@ input[type="number"] {
     padding: 0;
     background-color: #788cda;
     line-height: 1;
-    &:hover {
-        filter: brightness(1.2);
-        text-shadow: 0 0 3px rgb(0 0 0 / .5);
-    }
 }
 
 /* ================================
@@ -156,8 +158,12 @@ input[type="number"] {
     display: flex;
     flex-direction: column;
     justify-content: start;
-    & h5 {
-        margin: 0 0 2rem;
+    .title-content {
+        display: flex;
+        align-items: center;
+        margin-bottom: 2rem;
+        & h5 {margin: 0;}
+        .button {margin-left: 2rem;}
     }
     #historialContent {
         flex: 1;
@@ -233,8 +239,8 @@ input[type="number"] {
         cursor: pointer;
         transition: all 100ms;
         &:has(.checkbox:checked) {
-            border-color: var(--color-able);
-            background-color: var(--color-able);
+            border-color: var(--color-success);
+            background-color: var(--color-success);
             & span {
                 position: relative;
                 &::before {
