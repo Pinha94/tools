@@ -36,8 +36,9 @@ if (!empty($_POST)) :
             <div class="actions">
                 <button id="uncheckedBtn" class="button icon-button" title="Desmarcar revisados"><i class="fa-regular fa-square"></i></button>
                 <button id="reloadBtn" class="button icon-button" title="Recargar vistas"><i class="fa-solid fa-rotate-right"></i></button>
+                <button id="copyHash" class="button icon-button" title="Copiar hash" data-tocopy="currentHash"><i class="fa-regular fa-copy"></i></button>
             </div>
-            <h4><?php echo $hash; ?></h4>
+            <h4 id="currentHash"><?php echo $hash; ?></h4>
         </div>
     </div>
     <div class="content">
