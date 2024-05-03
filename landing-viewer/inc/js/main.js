@@ -7,13 +7,14 @@ document.addEventListener("DOMContentLoaded", function(event) {
 });
 
 function app() {
-    console.log('App is ready');
+    console.info('App is ready');
     const elementsSelect = document.querySelectorAll('select');
     const iframes = document.querySelectorAll('.preview');
     const buttons = document.querySelectorAll('.button');
     const reloadBtn = document.getElementById('reloadBtn');
     const uncheckedBtn = document.getElementById('uncheckedBtn');
     const clearHistoryBtn = document.getElementById('clearHistoryBtn');
+    const copyHashBtns = document.querySelectorAll('*[data-tocopy]');
 
     if (elementsSelect) {
         var changeColor = (element, newColor) => element.style.color = newColor;
@@ -59,6 +60,14 @@ function app() {
             document.getElementById('historialContent').innerHTML = '<li class="small">Nada para mostrar</li>';
         });
     }
+
+    if (copyHashBtns.length > 0) {
+        copyHashBtns.forEach(btn => {
+            btn.addEventListener('click', event => {
+                copyText(event.currentTarget.getAttribute('data-tocopy'));
+            });
+        });
+    } 
 }
 
 function impHistorial() {
@@ -103,4 +112,33 @@ function impHistorial() {
         prefix.value = data['prefix'];
         custom.value = data['custom'];
     }
+}
+
+function copyText(elementId) {
+    const target = document.getElementById(elementId);
+    const textToCopy = target.textContent;
+
+    // Crear un elemento de área de texto temporal
+    const textArea = document.createElement("textarea");
+
+    // Establecer el contenido de texto en el área de texto
+    textArea.value = textToCopy;
+
+    // Añadir el área de texto al DOM
+    document.body.appendChild(textArea);
+
+    // Seleccionar todo el texto en el área de texto
+    textArea.select();
+
+    // Intentar copiar el texto seleccionado al portapapeles
+    try {
+        const successful = document.execCommand('copy');
+        const message = successful ? 'Texto copiado al portapapeles' : 'Error al copiar el texto al portapapeles';
+        console.info(message);
+    } catch (err) {
+        console.error('Error al intentar copiar el texto:', err);
+    }
+
+    // Eliminar el área de texto del DOM
+    document.body.removeChild(textArea);
 }

@@ -37,7 +37,10 @@ h3 {font-size: 2.8rem;}
 h4 {font-size: 2.4rem;}
 h5 {font-size: 2.0rem;}
 h6 {font-size: 1.8rem;}
-h1,h2,h3,h4,h5,h6 {margin: 1rem;}
+h1,h2,h3,h4,h5,h6 {
+    user-select: none;
+    margin: 1rem;
+}
 a {text-decoration: none;}
 ul, li {
     padding: 0;
