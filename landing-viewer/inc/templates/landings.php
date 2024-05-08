@@ -1,6 +1,6 @@
 <?php 
 
-if (!empty($_POST)) :
+if (!empty($_POST) && !isset($_POST['addnew'])) :
     // Bucle para concatenar el número 1 tantas veces como el valor de $numReps
     for ($i = 0; $i < ($digitsCant - 1); $i++) {
         $magic .= '1';
@@ -23,7 +23,18 @@ if (!empty($_POST)) :
     );
 
     $baseUrl = 'http://';
-    $baseUrl .= ($ambiente == '') ? '' : $ambiente . '.';
+    switch ($ambiente) {
+        case '':
+            $baseUrl .= '';
+            break;
+        case 'qav2':
+            $baseUrl .= 'qa.v2.';
+            break;
+        default:
+            $baseUrl .= $ambiente . '.';
+            break;
+    }
+    // $baseUrl .= ($ambiente == '') ? '' : $ambiente . '.';
     $baseUrl .= 'oprastore.com/traffic/landing/';
     $baseUrl .= $hash . '/';
     $baseUrl .= $custom;

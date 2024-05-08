@@ -1,5 +1,37 @@
 <?php 
     $paises = getJSON('paises.json');
+
+    if (!empty($_POST) && isset($_POST['addnew'])) {
+        // Obtener los datos del formulario
+        $newNameCountry = $_POST['pais'];
+        $nuevoDigitsCant = $_POST['digitsCant'];
+        $newPrefix = $_POST['prefix'];
+
+        // Obtener las claves del array $paises
+        $claves_paises = array_keys($paises);
+        // Obtener el último ID
+        $ultima_clave = end($claves_paises);
+        $ultimo_id = $paises[$ultima_clave]['id'];
+        // Nuevo ID
+        $nuevo_id = $ultimo_id + 1;
+    
+        // Crear un nuevo array para el nuevo país
+        $newCountry = array(
+            "id" => $nuevo_id,
+            "cantidad_digitos" => $nuevoDigitsCant,
+            "prefijo" => $newPrefix
+        );
+    
+        // Agregar el nuevo país al array de paises
+        $paises[$newNameCountry] = $newCountry;
+    
+        // Convertir el array actualizado a formato JSON
+        $json_actualizado = json_encode($paises, JSON_PRETTY_PRINT);
+    
+        // Escribir los datos actualizados en el archivo JSON
+        $rutaJSON = $_SERVER['DOCUMENT_ROOT'] . 'tools/landing-viewer/config/database/paises.json';
+        file_put_contents($rutaJSON, $json_actualizado);
+    }
 ?>
 <div class="seccion-columns">
     <section id="configForm" class="seccion">
@@ -9,13 +41,14 @@
                 <div class="field-content">
                     <label for="hash">Hash</label>
                     <input class="field" value="<?php echo $hash ?? null ?>"
-                        type="text" name="hash" id="hash" placeholder="Hash">
+                        type="text" name="hash" id="hash" placeholder="Hash" required>
                 </div>
                 <div class="field-content">
                     <label for="ambiente">Ambiente</label>
                     <select class="select" name="ambiente" id="ambiente">
                         <option value="dev" <?php echo ($ambiente == 'dev') ? 'selected' : ''; ?>>DEV</option>
                         <option value="qa" <?php echo ($ambiente == 'qa') ? 'selected' : ''; ?>>QA</option>
+                        <option value="qav2" <?php echo ($ambiente == 'qav2') ? 'selected' : ''; ?>>QA V2</option>
                         <option value="1" <?php echo ($ambiente == '1') ? 'selected' : ''; ?>>PROD</option>
                     </select>
                 </div>
@@ -32,17 +65,17 @@
                 <div class="field-content">
                     <label for="digitsCant">Cantidad de dígitos</label>
                     <input value="<?php echo $digitsCant ?? null ?>" class="field" type="number"
-                        name="digitsCant" id="digitsCant" placeholder="Cantidad de dígitos">
+                        name="digitsCant" id="digitsCant" placeholder="Cantidad de dígitos" required>
                 </div>
                 <div class="field-content">
                     <label for="prefix">Prefijo</label>
                     <input value="<?php echo $prefix ?? null ?>" class="field" type="number"
-                        name="prefix" id="prefix" placeholder="Prefijo">
+                        name="prefix" id="prefix" placeholder="Prefijo" required>
                 </div>
                 <div class="field-content">
                     <label for="custom">Personalizado</label>
                     <input value="<?php echo $custom ?? '159/?' ?>" class="field" type="text"
-                        name="custom" id="custom" placeholder="Parametros personalizados">
+                        name="custom" id="custom" placeholder="Parametros personalizados" required>
                 </div>
             </fieldset>
             <button id="sendUrl" type="submit" class="button">Enviar</button>
@@ -59,6 +92,23 @@
         </ul>
     </aside>
 </div>
+<section id="popup" class="hide">
+    <div class="content">
+        <h4>Agrega un nuevo país</h4>
+        <form action="" id="addCountry" method="POST" class="field-content">
+            <input type="hidden" name="addnew" value="true">
+            <input class="field" type="text" name="pais" id="nuevoPais" placeholder="País">
+            <input class="field" type="number" name="digitsCant" id="newDigitsCant" placeholder="Cantidad de dígitos">
+            <input class="field" type="number" name="prefix" id="newPrefix" placeholder="Prefijo">
+            <button type="submit" id="addButton" class="button">Agregar</button>
+            <button type="button" id="cancelButton" class="button red">Cancelar</button>
+        </form>
+    </div>
+</section>
+
+<?php
+    
+?>
 
 
 <script>
@@ -103,7 +153,7 @@
     let historial = getHistorial();
 
     // Convertir el array $_POST de PHP a JSON
-    const postData = <?php echo empty($_POST) ? 'null' : json_encode($_POST); ?>;
+    const postData = <?php echo (!empty($_POST) && !isset($_POST['addnew'])) ? json_encode($_POST) : 'null'; ?>;
 
     // Verificar si postData está definido y no es nulo
     if (postData !== undefined && postData !== null) {
