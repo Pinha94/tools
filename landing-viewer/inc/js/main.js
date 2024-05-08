@@ -1,14 +1,18 @@
+const elementsSelect = document.querySelectorAll('select');
 const hasForm = document.getElementById('configForm');
 const historialData = localStorage.getItem('historial');
 
 document.addEventListener("DOMContentLoaded", function(event) {
     app();
+    elementsSelect && changeColorSelect();
     impHistorial();
 });
 
+// Mini funciones útiles
+var changeColor = (element, newColor) => element.style.color = newColor;
+
 function app() {
     console.info('App is ready');
-    const elementsSelect = document.querySelectorAll('select');
     const iframes = document.querySelectorAll('.preview');
     const buttons = document.querySelectorAll('.button');
     const reloadBtn = document.getElementById('reloadBtn');
@@ -16,24 +20,16 @@ function app() {
     const clearHistoryBtn = document.getElementById('clearHistoryBtn');
     const copyHashBtns = document.querySelectorAll('*[data-tocopy]');
     const selectFlow = document.getElementById('flow');
+    const popup = document.getElementById('popup');
 
-    elementsSelect && changeColorSelect();
     reloadBtn && reloadViews();
     buttons && animateButtons();
     uncheckedBtn && uncheckAll();
     clearHistoryBtn && clearHistory();
     (copyHashBtns.length > 0) && copyText(copyHashBtns);
     selectFlow && filterByFlow();
+    popup && addCountry();
 
-    // Cambia el color del default de los select
-    function changeColorSelect() {
-        var changeColor = (element, newColor) => element.style.color = newColor;
-        
-        elementsSelect.forEach(select => {
-            changeColor(select, select.value == 0 ? 'rgb(255 255 255 / .5)' : '#FFF');
-            select.addEventListener('change', () => changeColor(select, '#FFF'))
-        });
-    }
     // Recarga los iframes
     function reloadViews() {
         reloadBtn.addEventListener('click', () => {
@@ -83,17 +79,17 @@ function app() {
     // Filtar por flujo
     function filterByFlow() {
         selectFlow.addEventListener('change', () => {
-            showElements(['.viewer']);
+            showViewer(['.viewer']);
             setTimeout(() => {
                 switch (selectFlow.value) {
                     case 'pin':
-                        hideElements(['.doi', '.confirm']);
+                        hideViewer(['.doi', '.confirm']);
                         break;
                     case 'wap':
-                        hideElements(['.request-pin', '.doi', '.no-he']);
+                        hideViewer(['.request-pin', '.doi', '.no-he']);
                         break;
                     case 'doi':
-                        hideElements(['.request-pin', '.confirm', '.ok']);
+                        hideViewer(['.request-pin', '.confirm', '.ok']);
                         break;
                 
                     default:
@@ -103,8 +99,29 @@ function app() {
             }, 100);
         });
     }
+    // Agrega un nuevo país al json
+    function addCountry() {
+        const selectCountry = document.getElementById('pais');
+        const cancelButton = document.getElementById('cancelButton');
+
+        selectCountry.addEventListener('click', () => ( selectCountry.value == 'new') && show(popup) )
+
+        cancelButton.addEventListener('click', () => {
+            hide(popup);
+            selectCountry.value = 0;
+            changeColor(selectCountry, 'rgb(255 255 255 / .5)');
+        });
+    }
+
 }
 
+// Cambia el color del default de los select
+function changeColorSelect() {    
+    elementsSelect.forEach(select => {
+        changeColor(select, select.value == 0 ? 'rgb(255 255 255 / .5)' : '#FFF');
+        select.addEventListener('change', () => changeColor(select, '#FFF'))
+    });
+}
 // Imprime historial de navegación
 function impHistorial() {
     const listHistorial = document.getElementById('historialContent');
@@ -149,7 +166,6 @@ function impHistorial() {
         custom.value = data['custom'];
     }
 }
-
 // Guarda texto del elemento en la papelera
 function saveToClipboard(elementId) {
     const target = document.getElementById(elementId);
@@ -184,9 +200,8 @@ function saveToClipboard(elementId) {
 
 
 }
-
-// Oculta elementos
-function hideElements(params) {
+// Oculta vistas
+function hideViewer(params) {
     params.forEach(key => {
         let element = document.querySelector(key);
         return new Promise(resolve => {
@@ -214,8 +229,8 @@ function hideElements(params) {
         });
     });
 }
-// Muestra elementos ocultos
-function showElements(params) {
+// Muestra vistas ocultas
+function showViewer(params) {
     let elements = document.querySelectorAll(params);
     elements.forEach(element => {
         if (element.classList.contains('hide')) {
@@ -248,4 +263,22 @@ function showElements(params) {
             return false;
         }
     });
+}
+// Oculta un elemento
+function hide(element) {
+    element.animate({
+        opacity: 0
+    }, 500).onfinish = () => {
+        element.style.opacity = 0;
+        element.classList.add('hide');
+    }
+}
+// Muestra un elemento
+function show(element) {
+    element.classList.remove('hide');
+    element.animate({
+        opacity: 1
+    }, 500).onfinish = () => {
+        element.style.opacity = 1;
+    }
 }

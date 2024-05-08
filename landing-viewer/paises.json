@@ -50,9 +50,9 @@
         "prefijo": "591"
     },
     "Honduras": {
-        "id": 14,
-        "cantidad_digitos": "55",
-        "prefijo": "555"
+        "id": 11,
+        "cantidad_digitos": 8,
+        "prefijo": "504"
     },
     "Peru": {
         "id": 12,
@@ -63,5 +63,10 @@
         "id": 13,
         "cantidad_digitos": 9,
         "prefijo": "971"
+    },
+    "Nicaragua": {
+        "id": 14,
+        "cantidad_digitos": "100",
+        "prefijo": "666666"
     }
 }
