@@ -1,5 +1,5 @@
 <?php 
-    $paises = getJSON('paises.json');
+    $paises = conectarDB('paises');
 ?>
 <div class="seccion-columns">
     <section id="configForm" class="seccion">
@@ -9,7 +9,7 @@
                 <div class="field-content">
                     <label for="hash">Hash</label>
                     <input class="field" value="<?php echo $hash ?? null ?>"
-                        type="text" name="hash" id="hash" placeholder="Hash">
+                        type="text" name="hash" id="hash" placeholder="Hash" required>
                 </div>
                 <div class="field-content">
                     <label for="ambiente">Ambiente</label>
@@ -23,8 +23,8 @@
                     <label for="pasi">Pais</label>
                     <select class="select" name="pais" id="pais">
                         <option value="0" selected disabled>Selecciona un país</option>
-                        <?php foreach ($paises as $element => $data) : ?>
-                        <option value="<?php echo $element; ?>" <?php echo ($pais == $element) ? 'selected' : ''; ?>><?php echo $element; ?></option>
+                        <?php foreach ($paises as $element) : ?>
+                        <option value="<?php echo $element['nombre_pais']; ?>" <?php echo ($element['nombre_pais'] == $pais) ? 'selected' : ''; ?>><?php echo $element['nombre_pais']; ?></option>
                         <?php endforeach; ?>
                         <option value="new">Nuevo país</option>
                     </select>
@@ -37,12 +37,12 @@
                 <div class="field-content">
                     <label for="prefix">Prefijo</label>
                     <input value="<?php echo $prefix ?? null ?>" class="field" type="number"
-                        name="prefix" id="prefix" placeholder="Prefijo">
+                        name="prefix" id="prefix" placeholder="Prefijo" required>
                 </div>
                 <div class="field-content">
                     <label for="custom">Personalizado</label>
                     <input value="<?php echo $custom ?? '159/?' ?>" class="field" type="text"
-                        name="custom" id="custom" placeholder="Parametros personalizados">
+                        name="custom" id="custom" placeholder="Parametros personalizados" required>
                 </div>
             </fieldset>
             <button id="sendUrl" type="submit" class="button">Enviar</button>
@@ -62,16 +62,21 @@
 
 
 <script>
+    var paises = <?php echo json_encode($paises); ?>;
     const selectPais = document.getElementById('pais');
     const inputDigitsCant = document.getElementById('digitsCant');
     const inputPrefix = document.getElementById('prefix');
 
+    // Autocompleta cant digit & prefijo al elegir un pais
     selectPais.addEventListener('change', function() {
         // Obtener el país seleccionado
         const selectedOption = selectPais.options[selectPais.selectedIndex];
-        const pais = selectedOption.value;
-        if (pais !== 'new') {
-            const datosPais = <?php echo json_encode($paises); ?>[pais];
+        const currentPais = selectedOption.value;
+        if (currentPais !== 'new') {
+            var datosPais;
+            paises.forEach(pais => {
+                if (pais.nombre_pais === currentPais) datosPais = pais;
+            });
             // Asignar los valores correspondientes a los inputs
             inputDigitsCant.value = datosPais.cantidad_digitos;
             inputPrefix.value = datosPais.prefijo;
@@ -90,6 +95,7 @@
 
     // =======================
 
+    // Obtiene el historial desde el localstorage
     function getHistorial() {
         const historialData = localStorage.getItem('historial');
         if (historialData) {

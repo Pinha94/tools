@@ -16,6 +16,7 @@ function app() {
     const clearHistoryBtn = document.getElementById('clearHistoryBtn');
     const copyHashBtns = document.querySelectorAll('*[data-tocopy]');
 
+    // Cambia el color de texto de los elementos select
     if (elementsSelect) {
         var changeColor = (element, newColor) => element.style.color = newColor;
         
