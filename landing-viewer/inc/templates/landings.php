@@ -1,6 +1,6 @@
 <?php 
 
-if (!empty($_POST)) :
+if (!empty($_POST) && !isset($_POST['addnew'])) :
     // Bucle para concatenar el número 1 tantas veces como el valor de $numReps
     for ($i = 0; $i < ($digitsCant - 1); $i++) {
         $magic .= '1';
@@ -23,7 +23,18 @@ if (!empty($_POST)) :
     );
 
     $baseUrl = 'http://';
-    $baseUrl .= ($ambiente == '') ? '' : $ambiente . '.';
+    switch ($ambiente) {
+        case '':
+            $baseUrl .= '';
+            break;
+        case 'qav2':
+            $baseUrl .= 'qa.v2.';
+            break;
+        default:
+            $baseUrl .= $ambiente . '.';
+            break;
+    }
+    // $baseUrl .= ($ambiente == '') ? '' : $ambiente . '.';
     $baseUrl .= 'oprastore.com/traffic/landing/';
     $baseUrl .= $hash . '/';
     $baseUrl .= $custom;
@@ -34,6 +45,15 @@ if (!empty($_POST)) :
         <h4>Vistas</h4>
         <div class="right">
             <div class="actions">
+                <div class="field-content">
+                    <select class="select" name="flow" id="flow">
+                        <option value="0" selected disabled>Flujo</option>
+                        <option value="all">ALL</option>
+                        <option value="pin">PIN</option>
+                        <option value="wap">WAP</option>
+                        <option value="doi">DOI</option>
+                    </select>
+                </div>
                 <button id="uncheckedBtn" class="button icon-button" title="Desmarcar revisados"><i class="fa-regular fa-square"></i></button>
                 <button id="reloadBtn" class="button icon-button" title="Recargar vistas"><i class="fa-solid fa-rotate-right"></i></button>
                 <button id="copyHash" class="button icon-button" title="Copiar hash" data-tocopy="currentHash"><i class="fa-regular fa-copy"></i></button>
@@ -50,6 +70,7 @@ if (!empty($_POST)) :
                 $msisdn = $msisdnData["msisdn"];
                 $name = $msisdnData["name"];
                 $pin = $msisdnData["pin"] ?? NULL;
+                $class = str_replace(' ', '-', $name);
                 // Generar el URL completo para el iframe y el enlace
                 switch ($name) {
                     case 'confirm':
@@ -64,7 +85,7 @@ if (!empty($_POST)) :
                         break;
                 }
         ?>
-        <div class="viewer">
+        <div class="viewer <?php echo $class; ?>">
             <div class="preview-content">
                 <iframe
                     class="preview"
