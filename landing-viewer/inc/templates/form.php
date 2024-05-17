@@ -64,7 +64,7 @@
         </ul>
     </aside>
 </div>
-<section id="popup" class="hide">
+<section id="popup" class="popup hide">
     <div class="content">
         <h4>Agrega un nuevo país</h4>
         <form action="" id="addCountry" method="POST" class="field-content">
