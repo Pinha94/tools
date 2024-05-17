@@ -1,37 +1,7 @@
 <?php 
-    $paises = conectarDB('paises');
-
-    if (!empty($_POST) && isset($_POST['addnew'])) {
-        // Obtener los datos del formulario
-        $newNameCountry = $_POST['pais'];
-        $nuevoDigitsCant = $_POST['digitsCant'];
-        $newPrefix = $_POST['prefix'];
-
-        // Obtener las claves del array $paises
-        $claves_paises = array_keys($paises);
-        // Obtener el último ID
-        $ultima_clave = end($claves_paises);
-        $ultimo_id = $paises[$ultima_clave]['id'];
-        // Nuevo ID
-        $nuevo_id = $ultimo_id + 1;
-    
-        // Crear un nuevo array para el nuevo país
-        $newCountry = array(
-            "id" => $nuevo_id,
-            "cantidad_digitos" => $nuevoDigitsCant,
-            "prefijo" => $newPrefix
-        );
-    
-        // Agregar el nuevo país al array de paises
-        $paises[$newNameCountry] = $newCountry;
-    
-        // Convertir el array actualizado a formato JSON
-        $json_actualizado = json_encode($paises, JSON_PRETTY_PRINT);
-    
-        // Escribir los datos actualizados en el archivo JSON
-        $rutaJSON = $_SERVER['DOCUMENT_ROOT'] . 'tools/landing-viewer/config/database/paises.json';
-        file_put_contents($rutaJSON, $json_actualizado);
-    }
+    $conn = connectDB();
+    $paises = getAll($conn, 'paises');
+    closeConnection($conn);
 ?>
 <div class="seccion-columns">
     <section id="configForm" class="seccion">
@@ -57,7 +27,9 @@
                     <select class="select" name="pais" id="pais">
                         <option value="0" selected disabled>Selecciona un país</option>
                         <?php foreach ($paises as $element) : ?>
-                        <option value="<?php echo $element['nombre_pais']; ?>" <?php echo ($element['nombre_pais'] == $pais) ? 'selected' : ''; ?>><?php echo $element['nombre_pais']; ?></option>
+                        <option value="<?php echo $element['nombre_pais']; ?>" <?php echo ($element['nombre_pais'] == $pais) ? 'selected' : ''; ?>>
+                            <?php echo $element['nombre_pais']; ?>
+                        </option>
                         <?php endforeach; ?>
                         <option value="new">Nuevo país</option>
                     </select>
@@ -106,11 +78,6 @@
     </div>
 </section>
 
-<?php
-    
-?>
-
-
 <script>
     var paises = <?php echo json_encode($paises); ?>;
     const selectPais = document.getElementById('pais');
@@ -154,13 +121,10 @@
             return [];
         }
     }
-
     // Obtener historial actual
     let historial = getHistorial();
-
     // Convertir el array $_POST de PHP a JSON
     const postData = <?php echo (!empty($_POST) && !isset($_POST['addnew'])) ? json_encode($_POST) : 'null'; ?>;
-
     // Verificar si postData está definido y no es nulo
     if (postData !== undefined && postData !== null) {
         // Verificar si la combinación de datos ya existe en el historial
@@ -172,17 +136,14 @@
             historial = Array.isArray(historial) ? historial : []; // Asegurarse de que historial sea un array
             historial.push(postData);
 
-            // Verificar si el historial tiene más de 10 elementos
-            if (historial.length > 10) {
-                // Eliminar el elemento más antiguo
-                historial.shift();
-            }
+            // Verificar si el historial tiene más de 10 elementos y elimina el más antiguo
+            if (historial.length > 10) {historial.shift();}
 
             // Almacenar los datos actualizados en la memoria local
             localStorage.setItem('historial', JSON.stringify(historial));
         }
     } else {
-        // console.error('El objeto postData no está definido o es nulo.');
+        console.error('El objeto postData no está definido o es nulo.');
     }
 
 </script>

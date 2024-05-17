@@ -1,5 +1,6 @@
 <?php 
-    include 'config/database.php'; 
+    include 'config/database.php';
+    include 'config/functions.php';
 
     // Iniciar sesión si no está iniciada
     if (session_status() === 1) {
@@ -11,5 +12,4 @@
             header('location: login.php');
         }
     }
-    
 ?>
