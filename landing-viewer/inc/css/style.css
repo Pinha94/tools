@@ -77,6 +77,8 @@ input[type="number"] {
 .error-msg {color: var(--color-error);}
 .small {font-size: 80%;}
 .button {
+    position: relative;
+    overflow: hidden;
     padding: .7rem 1.5rem;
     text-transform: uppercase;
     background-color: #4233fe;
@@ -235,42 +237,39 @@ input[type="number"] {
             }
         }
     }
-    .check-content {
+    & h5 {margin: 0;}
+    .actions {
         display: flex;
         align-items: center;
-        justify-content: center;
-        gap: 10px;
-        border: solid .1rem rgb(255 255 255 / .1);
-        border-radius: .5rem;
-        padding: .4rem;
-        line-height: 1;
-        user-select: none;
-        cursor: pointer;
-        transition: all 100ms;
-        &:has(.checkbox:checked) {
-            border-color: var(--color-success);
-            background-color: var(--color-success);
-            & span {
-                position: relative;
-                &::before {
-                    content: '\f00c';
-                    font-family: 'Fontawesome';
-                    position: absolute;
-                    left: 0;
-                    top: calc(50% - .7rem);
-                    margin-left: -2rem;
-                    font-size: 1.4rem;
-                }
+        justify-content: end;
+        gap: 1rem;
+        .check-content {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            user-select: none;
+            cursor: pointer;
+            &:has(.checkbox:checked) {
+                border-color: var(--color-success);
+                background: var(--color-success) !important;
+                .fa-check {display: block;}
+                .fa-square {display: none;}
             }
+            .checkbox { display: none; }
+            .fa-check {display: none;}
         }
-        .checkbox { display: none; }
     }
 }
 
 /* ================================
         Seccion popup
 =================================== */
-#popup {
+.popup {
     display: flex;
     position: fixed;
     justify-content: center;
@@ -294,6 +293,37 @@ input[type="number"] {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 2rem 1rem;
+        }
+    }
+    &#bigView .content {
+        width: 40rem;
+        max-width: 100%;
+        height: calc(100% - 40px);
+        margin: 0;
+        scrollbar-width: thin;
+        overflow: auto;
+        & header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        .preview-content {
+            position: relative;
+            // width: calc(35rem * .5);
+            // height: calc(75rem * .5);
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            .preview {
+                width: 35rem;
+                height: 75rem;
+                transform: scale(.75);
+                transform-origin: top center;
+                position: absolute;
+                left: 0;
+                top: 0;
+            }
         }
     }
 }

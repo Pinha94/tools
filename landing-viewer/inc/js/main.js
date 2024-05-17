@@ -20,7 +20,8 @@ function app() {
     const clearHistoryBtn = document.getElementById('clearHistoryBtn');
     const copyHashBtns = document.querySelectorAll('*[data-tocopy]');
     const selectFlow = document.getElementById('flow');
-    const popup = document.getElementById('popup');
+    const formPopup = document.getElementById('popup');
+    const bigView = document.getElementById('bigView');
 
     reloadBtn && reloadViews();
     buttons && animateButtons();
@@ -28,7 +29,8 @@ function app() {
     clearHistoryBtn && clearHistory();
     (copyHashBtns.length > 0) && copyText(copyHashBtns);
     selectFlow && filterByFlow();
-    popup && addCountry();
+    formPopup && addCountry();
+    bigView && setExpandedView();
 
     // Recarga los iframes
     function reloadViews() {
@@ -104,15 +106,38 @@ function app() {
         const selectCountry = document.getElementById('pais');
         const cancelButton = document.getElementById('cancelButton');
 
-        selectCountry.addEventListener('click', () => ( selectCountry.value == 'new') && show(popup) )
+        selectCountry.addEventListener('click', () => ( selectCountry.value == 'new') && show(formPopup) )
 
         cancelButton.addEventListener('click', () => {
-            hide(popup);
+            hide(formPopup);
             selectCountry.value = 0;
             changeColor(selectCountry, 'rgb(255 255 255 / .5)');
         });
     }
+    function setExpandedView() {
+        const buttons = document.querySelectorAll('button[data-action="expand"]');
+        const closeButton = document.getElementById('closeBigView');
+        const bigViewName = document.getElementById('bigViewName');
+        const expandedView = document.getElementById('expandedView');
+        
+        // Itera todos los botones de expandir para escuchar el click
+        buttons.forEach(button => {
+            button.addEventListener('click', () => {
+                let nameView = button.getAttribute('data-name');
+                let srcView = button.getAttribute('data-src');
 
+                bigViewName.innerText = nameView;
+                expandedView.setAttribute('src', srcView);
+                
+                show(bigView);
+            });
+        });
+
+        // Cerrar vista expandida
+        closeButton.addEventListener('click', () => {
+            hide(bigView);
+        });
+    }
 }
 
 // Cambia el color del default de los select

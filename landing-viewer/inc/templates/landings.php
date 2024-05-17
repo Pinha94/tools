@@ -93,16 +93,48 @@ if (!empty($_POST) && !isset($_POST['addnew'])) :
                     frameborder="0">
                 </iframe>
             </div>
-            <label for="checked<?php echo $i; ?>" class="check-content">
-                <input class="checkbox" type="checkbox" name="checked" id="checked<?php echo $i; ?>">
-                <span>Revisado</span>
-            </label>
-            <a href="<?php echo $fullUrl ?>" target="_blank" class="button">ver <?php echo $name; ?></a>
+            <h5><?php echo $name; ?></h5>
+            <div class="actions">
+                <button class="button icon-button" title="Marcar como revisado">
+                    <label for="checked<?php echo $i; ?>" class="check-content">
+                        <input class="checkbox" type="checkbox" name="checked" id="checked<?php echo $i; ?>">
+                        <i class="fa fa-check"></i>
+                        <i class="fa-regular fa-square"></i>
+                    </label>
+                </button>
+                <a href="<?php echo $fullUrl ?>" 
+                    class="button icon-button" 
+                    target="_blank" 
+                    title="Abrir en una nueva pestaña"
+                >
+                    <i class="fa fa-eye"></i>
+                </a>
+                <button 
+                    class="button icon-button" 
+                    data-action="expand"
+                    data-name="<?php echo $name; ?>"
+                    data-src="<?php echo $fullUrl; ?>"
+                    title="Expandir"
+                >
+                    <i class="fa-solid fa-up-right-and-down-left-from-center"></i>
+                </button>
+            </div>
         </div>
         <?php 
             endforeach; 
             endif;
         ?>
+    </div>
+</section>
+<section id="bigView" class="popup hide">
+    <div class="content">
+        <header>
+            <h5 id="bigViewName"></h5>
+            <button id="closeBigView" class="button icon-button red"><i class="fa-solid fa-xmark"></i></button>
+        </header>
+        <main class="preview-content">
+            <iframe id="expandedView" class="preview" src="" frameborder="0"></iframe>
+        </main>
     </div>
 </section>
 <?php endif; ?>
