@@ -130,6 +130,7 @@ function app() {
                 expandedView.setAttribute('src', srcView);
                 
                 show(bigView);
+                resizeBigView();
             });
         });
 
@@ -137,6 +138,14 @@ function app() {
         closeButton.addEventListener('click', () => {
             hide(bigView);
         });
+
+        // Ajusta el tamaño
+        function resizeBigView() {
+            var height = expandedView.offsetHeight;
+            expandedView.width = height * (9 / 20);
+            var width = expandedView.offsetWidth;
+            console.log('rezized');
+        }
     }
 }
 

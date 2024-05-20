@@ -127,14 +127,8 @@ if (!empty($_POST) && !isset($_POST['addnew'])) :
     </div>
 </section>
 <section id="bigView" class="popup hide">
-    <div class="content">
-        <header>
-            <h5 id="bigViewName"></h5>
-            <button id="closeBigView" class="button icon-button red"><i class="fa-solid fa-xmark"></i></button>
-        </header>
-        <main class="preview-content">
-            <iframe id="expandedView" class="preview" src="" frameborder="0"></iframe>
-        </main>
-    </div>
+    <h2>Vista: <span id="bigViewName"></span></h2>
+    <button id="closeBigView" class="button icon-button red"><i class="fa-solid fa-xmark"></i></button>
+    <iframe id="expandedView" class="preview" src="" width="350px" height="700px" frameborder="0"></iframe>
 </section>
 <?php endif; ?>
