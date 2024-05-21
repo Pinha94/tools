@@ -129,6 +129,6 @@ if (!empty($_POST) && !isset($_POST['addnew'])) :
 <section id="bigView" class="popup hide">
     <h2>Vista: <span id="bigViewName"></span></h2>
     <button id="closeBigView" class="button icon-button red"><i class="fa-solid fa-xmark"></i></button>
-    <iframe id="expandedView" class="preview" src="" width="350px" height="700px" frameborder="0"></iframe>
+    <iframe id="expandedView" class="preview" src="" frameborder="0"></iframe>
 </section>
 <?php endif; ?>

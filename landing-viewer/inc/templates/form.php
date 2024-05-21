@@ -54,14 +54,14 @@
         </form>
     </section>
     <aside id="historial" class="seccion">
+        <button class="expand-menu"><i class="fa fa-chevron-right"></i></button>
         <div class="title-content">
             <h5>Recientes</h5>
             <button id="clearHistoryBtn" class="button icon-button red" title="Vaciar historial">
                 <i class="fa fa-trash-can"></i>
             </button>
         </div>
-        <ul id="historialContent" class="content">
-        </ul>
+        <ul id="historialContent" class="content"></ul>
     </aside>
 </div>
 <section id="popup" class="popup hide">
@@ -143,7 +143,7 @@
             localStorage.setItem('historial', JSON.stringify(historial));
         }
     } else {
-        console.error('El objeto postData no está definido o es nulo.');
+        // console.error('El objeto postData no está definido o es nulo.');
     }
 
 </script>

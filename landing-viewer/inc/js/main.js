@@ -1,16 +1,18 @@
 const elementsSelect = document.querySelectorAll('select');
 const hasForm = document.getElementById('configForm');
 const historialData = localStorage.getItem('historial');
+const isMobile = window.innerWidth <= 640;
 
 document.addEventListener("DOMContentLoaded", function(event) {
     app();
-    elementsSelect && changeColorSelect();
     impHistorial();
+    elementsSelect && changeColorSelect();
+    isMobile && appMobile();
 });
 
 // Mini funciones útiles
 var changeColor = (element, newColor) => element.style.color = newColor;
-
+// Funciones ejecutadas por evento
 function app() {
     console.info('App is ready');
     const iframes = document.querySelectorAll('.preview');
@@ -148,7 +150,33 @@ function app() {
         }
     }
 }
+// Funciones ejecutadas por eventos en mobile
+function appMobile() {
+    const historial = document.getElementById('historial');
+    const buttonExpandHistory = document.querySelector('#historial .expand-menu');
+    const iconExpandHistory = document.querySelector('#historial .expand-menu i');
+    
+    // Muestra brevemente el historial antes de ocultarlo
+    (function() {
+        setTimeout(() => {
+            slideX(historial, `-${historial.offsetWidth}px`, 500, 'right' );
+            rotate(iconExpandHistory, '180deg', 500 );
+        }, 1000);
+    })();
 
+    // Muestra el historial
+    buttonExpandHistory.addEventListener('click', () => {
+        if (historial.classList.contains('active')) {
+            slideX(historial, `-${historial.offsetWidth}px`, 500, 'right');
+            rotate(iconExpandHistory, '180deg', 500);
+            historial.classList.remove('active');
+        } else {
+            slideX(historial, 0, 500, 'right');
+            rotate(iconExpandHistory, '0deg', 500);
+            historial.classList.add('active');
+        }
+    })
+}
 // Cambia el color del default de los select
 function changeColorSelect() {    
     elementsSelect.forEach(select => {
@@ -315,4 +343,23 @@ function show(element) {
     }, 500).onfinish = () => {
         element.style.opacity = 1;
     }
+}
+// Deslizamiento a horizontal
+function slideX(element, distans, speed, position = 'left') {
+    element.style.transition = speed + 'ms';
+        
+    if (position === 'left') {
+        element.animate({
+            left: distans
+        }).onfinish = () => element.style.left = distans
+    } else {
+        element.animate({
+            right: distans
+        }).onfinish = () => element.style.right = distans
+    }
+}
+// Rotación
+function rotate(element, deg, speed) {
+    element.style.transition = speed + 'ms';
+    element.style.transform = `rotate(${deg})`;
 }
