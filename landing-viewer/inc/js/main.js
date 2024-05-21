@@ -117,6 +117,7 @@ function app() {
         });
     }
     function setExpandedView() {
+        const body = document.querySelector('body');
         const buttons = document.querySelectorAll('button[data-action="expand"]');
         const closeButton = document.getElementById('closeBigView');
         const bigViewName = document.getElementById('bigViewName');
@@ -130,6 +131,8 @@ function app() {
 
                 bigViewName.innerText = nameView;
                 expandedView.setAttribute('src', srcView);
+                body.classList.add('no-scroll');
+                
                 
                 show(bigView);
                 resizeBigView();
@@ -139,13 +142,14 @@ function app() {
         // Cerrar vista expandida
         closeButton.addEventListener('click', () => {
             hide(bigView);
+            body.classList.remove('no-scroll')
         });
 
         // Ajusta el tamaño
         function resizeBigView() {
             var height = expandedView.offsetHeight;
             expandedView.width = height * (9 / 20);
-            var width = expandedView.offsetWidth;
+            // var width = expandedView.offsetWidth;
             console.log('rezized');
         }
     }
