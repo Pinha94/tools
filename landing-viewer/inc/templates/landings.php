@@ -17,7 +17,7 @@ if (!empty($_POST) && !isset($_POST['addnew'])) :
         array("msisdn" => $baseMsisdn . "5", "name" => "doi"),
         array("msisdn" => $baseMsisdn . "1", "name" => "ok", "pin" => "11111"),
         array("msisdn" => $baseMsisdn . "1", "name" => "error", "pin" => "11112"),
-        array("msisdn" => $baseMsisdn . "1", "name" => "error Pin", "pin" => "11113"),
+        array("msisdn" => $baseMsisdn . "1", "name" => "error pin", "pin" => "11113"),
         array("msisdn" => $baseMsisdn . "1", "name" => "pin reenviado", "pin" => "11114"),
         array("msisdn" => $baseMsisdn . "1", "name" => "pin expirado", "pin" => "11115"),
     );
@@ -50,7 +50,7 @@ if (!empty($_POST) && !isset($_POST['addnew'])) :
                         <option value="0" selected disabled>Flujo</option>
                         <option value="all">ALL</option>
                         <option value="pin">PIN</option>
-                        <option value="wap">WAP</option>
+                        <option value="wap">HE</option>
                         <option value="doi">DOI</option>
                     </select>
                 </div>
@@ -71,17 +71,19 @@ if (!empty($_POST) && !isset($_POST['addnew'])) :
                 $name = $msisdnData["name"];
                 $pin = $msisdnData["pin"] ?? NULL;
                 $class = str_replace(' ', '-', $name);
+
                 // Generar el URL completo para el iframe y el enlace
+                $fullUrl = $baseUrl . $msisdn . ($pin ? '&pincode=' . $pin : '');
+
+                // Agrega parámetros adicionales
                 switch ($name) {
                     case 'confirm':
-                        $fullUrl = $baseUrl . $msisdn . '&forcepin=true&navigate=2ndOptin';
+                        $fullUrl .= '&forcepin=true&navigate=2ndOptin';
                         break;
-                    case 'request pin':
                     case 'no he':
-                        $fullUrl = $baseUrl . $msisdn . '&nohe=true';
-                        break;
-                    default:
-                        $fullUrl = $baseUrl . $msisdn . ($pin ? '&pincode=' . $pin : '');
+                    case 'request pin':
+                    case 'error pin':
+                        $fullUrl .= '&nohe=true';
                         break;
                 }
         ?>
