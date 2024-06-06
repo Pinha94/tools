@@ -30,6 +30,9 @@ if (!empty($_POST) && !isset($_POST['addnew'])) :
         case 'qav2':
             $baseUrl .= 'qa.v2.';
             break;
+        case 'dev2':
+            $baseUrl .= 'dev.v2.';
+            break;
         default:
             $baseUrl .= $ambiente . '.';
             break;
