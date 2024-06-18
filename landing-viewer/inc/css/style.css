@@ -366,11 +366,11 @@ input[type="number"] {
         }
         .preview {
             height: calc(100% - 8rem);
+            width: 35rem;
+            max-width: calc(100% - 8rem);
             margin-top: 4rem;
-            /* transform: scale(.75); */
             transform-origin: top center;
             position: absolute;
-            /* left: 50%; */
             top: 2rem;
         }
     }
