@@ -27,18 +27,22 @@ if (!empty($_POST) && !isset($_POST['addnew'])) :
         case '':
             $baseUrl .= '';
             break;
-        case 'qav2':
-            $baseUrl .= 'qa.v2.';
+        case 'local':
+            $baseUrl .= 'localhost:3035';
             break;
         case 'dev2':
             $baseUrl .= 'dev.v2.';
+            break;
+        case 'qav2':
+            $baseUrl .= 'qa.v2.';
             break;
         default:
             $baseUrl .= $ambiente . '.';
             break;
     }
     // $baseUrl .= ($ambiente == '') ? '' : $ambiente . '.';
-    $baseUrl .= 'oprastore.com/traffic/landing/';
+    $baseUrl .= $ambiente !== 'local' ? 'oprastore.com' : '';
+    $baseUrl .= '/traffic/landing/';
     $baseUrl .= $hash . '/';
     $baseUrl .= $custom;
     $baseUrl .= 'msisdn=';    

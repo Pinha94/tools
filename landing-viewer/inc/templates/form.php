@@ -16,6 +16,7 @@
                 <div class="field-content">
                     <label for="ambiente">Ambiente</label>
                     <select class="select" name="ambiente" id="ambiente">
+                        <option value="local" <?php echo ($ambiente == 'local') ? 'selected' : ''; ?>>LOCAL</option>
                         <option value="dev" <?php echo ($ambiente == 'dev') ? 'selected' : ''; ?>>DEV</option>
                         <option value="dev2" <?php echo ($ambiente == 'dev2') ? 'selected' : ''; ?>>DEV V2</option>
                         <option value="qa" <?php echo ($ambiente == 'qa') ? 'selected' : ''; ?>>QA</option>
