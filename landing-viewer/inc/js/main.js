@@ -10,8 +10,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
     isMobile && appMobile();
 });
 
-// Mini funciones útiles
+// Arrow functions útiles
 var changeColor = (element, newColor) => element.style.color = newColor;
+
 // Funciones ejecutadas por evento
 function app() {
     console.info('App is ready');
@@ -117,6 +118,7 @@ function app() {
         });
     }
     function setExpandedView() {
+        const body = document.querySelector('body');
         const buttons = document.querySelectorAll('button[data-action="expand"]');
         const closeButton = document.getElementById('closeBigView');
         const bigViewName = document.getElementById('bigViewName');
@@ -130,6 +132,8 @@ function app() {
 
                 bigViewName.innerText = nameView;
                 expandedView.setAttribute('src', srcView);
+                body.classList.add('no-scroll');
+                
                 
                 show(bigView);
                 resizeBigView();
@@ -139,13 +143,14 @@ function app() {
         // Cerrar vista expandida
         closeButton.addEventListener('click', () => {
             hide(bigView);
+            body.classList.remove('no-scroll')
         });
 
         // Ajusta el tamaño
         function resizeBigView() {
             var height = expandedView.offsetHeight;
             expandedView.width = height * (9 / 20);
-            var width = expandedView.offsetWidth;
+            // var width = expandedView.offsetWidth;
             console.log('rezized');
         }
     }
@@ -155,6 +160,8 @@ function appMobile() {
     const historial = document.getElementById('historial');
     const buttonExpandHistory = document.querySelector('#historial .expand-menu');
     const iconExpandHistory = document.querySelector('#historial .expand-menu i');
+
+    iconExpandHistory && showHideHistory();
     
     // Muestra brevemente el historial antes de ocultarlo
     (function() {
@@ -164,18 +171,20 @@ function appMobile() {
         }, 1000);
     })();
 
-    // Muestra el historial
-    buttonExpandHistory.addEventListener('click', () => {
-        if (historial.classList.contains('active')) {
-            slideX(historial, `-${historial.offsetWidth}px`, 500, 'right');
-            rotate(iconExpandHistory, '180deg', 500);
-            historial.classList.remove('active');
-        } else {
-            slideX(historial, 0, 500, 'right');
-            rotate(iconExpandHistory, '0deg', 500);
-            historial.classList.add('active');
-        }
-    })
+    // Muestra y oculta el historial
+    function showHideHistory() {
+        buttonExpandHistory.addEventListener('click', () => {
+            if (historial.classList.contains('active')) {
+                slideX(historial, `-${historial.offsetWidth}px`, 500, 'right');
+                rotate(iconExpandHistory, '180deg', 500);
+                historial.classList.remove('active');
+            } else {
+                slideX(historial, 0, 500, 'right');
+                rotate(iconExpandHistory, '0deg', 500);
+                historial.classList.add('active');
+            }
+        })
+    }
 }
 // Cambia el color del default de los select
 function changeColorSelect() {    
